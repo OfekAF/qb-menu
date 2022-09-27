@@ -1,4 +1,4 @@
-local QBBase = exports['qb-base']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 local headerShown = false
 local sendData = nil
@@ -9,11 +9,11 @@ local function openMenu(data)
 	for k,v in pairs(data) do 
 		if v["icon"] then
 			local img = "lj-inventory/html/"
-			if QBBase.Shared.Items[tostring(v["icon"])] then
-				if not string.find(QBBase.Shared.Items[tostring(v["icon"])].image, "images/") then 
+			if QBCore.Shared.Items[tostring(v["icon"])] then
+				if not string.find(QBCore.Shared.Items[tostring(v["icon"])].image, "images/") then 
 					img = img.."images/"
 				end
-				v["icon"] = img..QBBase.Shared.Items[tostring(v["icon"])].image
+				v["icon"] = img..QBCore.Shared.Items[tostring(v["icon"])].image
 			end
 		end
 	end
@@ -71,7 +71,7 @@ RegisterNUICallback('clickedButton', function(option)
                 elseif data.params.isCommand then
                     ExecuteCommand(data.params.event)
                 elseif data.params.isQBCommand then
-                    TriggerServerEvent('QBBase:CallCommand', data.params.event, data.params.args)
+                    TriggerServerEvent('QBCore:CallCommand', data.params.event, data.params.args)
                 elseif data.params.isAction then
                     data.params.event(data.params.args)
                 else
